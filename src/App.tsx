@@ -1,15 +1,14 @@
 import { Button, Container, Group, Text, Title } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { Error } from "./components/Error";
 import { Loading } from "./components/Loading";
 import { PostFilters } from "./components/PostFilters";
 import { PostList } from "./components/PostList";
 import { PostModal } from "./components/PostModal";
+import { useEnableNotifications } from "./hooks/useEnableNotifications";
 import { useFilters } from "./hooks/useFilters";
 import { useModalActions } from "./hooks/useModalAction";
 import { usePostActions } from "./hooks/usePostActions";
 import { usePosts } from "./hooks/usePosts";
-import { requestNotificationPermission } from "./services/firebaseService";
 
 export default function App() {
   const { fetchPosts, uniqueAuthors, isLoading, error, allPosts, setAllPosts } =
@@ -28,22 +27,7 @@ export default function App() {
   const { handleFilterChange, handleClearFilters, filteredPosts } =
     useFilters(allPosts);
 
-  const handleEnableNotifications = async () => {
-    const token = await requestNotificationPermission();
-    if (token) {
-      notifications.show({
-        title: "Notificaciones Activadas",
-        message: "Estás listo para recibir notificaciones push.",
-        color: "green",
-      });
-    } else {
-      notifications.show({
-        title: "Permiso Denegado",
-        message: "No se pudo activar las notificaciones.",
-        color: "red",
-      });
-    }
-  };
+  const { handleEnableNotifications } = useEnableNotifications();
 
   if (isLoading) return <Loading />;
 

@@ -110,6 +110,22 @@ Para ejecutar la suite de pruebas:
 npm run test
 ```
 
+## Estructura del Proyecto
+
+La estructura del proyecto está organizada de la siguiente manera:
+
+- **public/**: Contiene archivos públicos como el Service Worker para Firebase (`firebase-messaging-sw.js`) y otros recursos estáticos.
+- **src/**: Carpeta principal del código fuente.
+  - **App.tsx**: Componente raíz de la aplicación.
+  - **main.tsx**: Punto de entrada de la aplicación.
+  - **index.css**: Estilos globales de la aplicación.
+  - **assets/**: Recursos como imágenes y SVGs.
+  - **components/**: Componentes reutilizables como `PostCard`, `PostFilters`, `PostForm`, y `PostList`.
+  - **services/**: Servicios para manejar lógica de negocio y comunicación, como `broadcastChannelService`, `firebaseService`, `postService`, y `socketService`.
+  - **types/**: Definiciones de tipos TypeScript, como `post.ts`.
+- **tests/**: Contiene pruebas unitarias e integración, como `PostForm.test.tsx`.
+- **configuración**: Archivos de configuración como `vite.config.ts`, `tsconfig.json`, y `postcss.config.cjs`.
+
 ## Optimización Aplicada
 
 ### Lazy Loading
@@ -120,7 +136,7 @@ El componente PostForm.tsx (utilizado en el modal de creación/edición de posts
 
 Se utilizó rollup-plugin-visualizer (configurado en vite.config.ts) para generar un reporte interactivo del bundle de producción (stats.html), que se crea al ejecutar npm run build.
 
-### Notas Adicionales
+## Notas Adicionales
 
 1. **Simulación de WebSocket:**
 

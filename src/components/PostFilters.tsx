@@ -4,14 +4,12 @@ import type { PostStatus } from "../types/post";
 
 interface PostFiltersProps {
   authors: string[]; // Lista de autores únicos para el select de autor
-  statii: PostStatus[]; // Lista de estados posibles
   onFilterChange: (filters: { author: string; status: string }) => void;
   onClearFilters: () => void;
 }
 
 export function PostFilters({
   authors,
-  statii,
   onFilterChange,
   onClearFilters,
 }: PostFiltersProps) {
@@ -35,6 +33,8 @@ export function PostFilters({
     setSelectedStatus("");
     onClearFilters();
   };
+
+  const statii: PostStatus[] = ["draft", "published", "archived"];
 
   const authorOptions = [
     { value: "", label: "Todos los autores" },
@@ -70,8 +70,6 @@ export function PostFilters({
         className="min-w-[200px] flex-1"
       />
       <Button onClick={handleClear} variant="outline" mt="xl">
-        {" "}
-        {/* mt="xl" para alinear con labels */}
         Limpiar Filtros
       </Button>
     </Group>

@@ -19,10 +19,14 @@ export default function App() {
     handleOpenCreateModal,
     modalOpened,
     closeModal,
+    editingPost,
   } = useModalActions();
 
-  const { handleFormSubmit, handleDeletePost, isSubmitting, editingPost } =
-    usePostActions(setAllPosts, closeModal);
+  const { handleFormSubmit, handleDeletePost, isSubmitting } = usePostActions(
+    setAllPosts,
+    closeModal,
+    editingPost,
+  );
 
   const { handleFilterChange, handleClearFilters, filteredPosts } =
     useFilters(allPosts);

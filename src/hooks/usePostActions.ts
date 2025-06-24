@@ -8,9 +8,9 @@ import type { Post } from "../types/post";
 export function usePostActions(
   setAllPosts: React.Dispatch<React.SetStateAction<Post[]>>,
   closeModal: () => void,
+  editingPost: Post | undefined,
 ) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [editingPost, setEditingPost] = useState<Post | undefined>(undefined);
 
   const handleFormSubmit = async (data: PostFormData) => {
     setIsSubmitting(true);
@@ -92,5 +92,5 @@ export function usePostActions(
     }
   };
 
-  return { handleFormSubmit, handleDeletePost, isSubmitting, editingPost };
+  return { handleFormSubmit, handleDeletePost, isSubmitting };
 }

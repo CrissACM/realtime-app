@@ -6,7 +6,7 @@ import type { PostFormData } from "./PostForm";
 interface PostModalProps {
   modalOpened: boolean;
   closeModal: () => void;
-  editingPost?: Post; // Cambiado para que coincida con el tipo Post
+  editingPost: Post | undefined;
   handleFormSubmit: (data: PostFormData) => Promise<void>;
   isSubmitting: boolean;
 }

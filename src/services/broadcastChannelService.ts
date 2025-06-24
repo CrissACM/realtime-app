@@ -65,5 +65,5 @@ export const broadcastChannelService = {
   postMessage,
   subscribe,
   disconnect,
-  connect, // Exponer por si se necesita reconectar
+  connect,
 };

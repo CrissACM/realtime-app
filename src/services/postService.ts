@@ -1,4 +1,3 @@
-// src/features/posts/services/postService.ts
 import type { Post, PostStatus } from "../types/post";
 import {
   simulateNewPostEvent,

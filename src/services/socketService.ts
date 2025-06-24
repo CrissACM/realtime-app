@@ -1,8 +1,6 @@
-// src/services/socketService.ts
-
 import type { Post } from "../types/post";
 
-// Tipos para los eventos que simularemos
+// Tipos para los eventos simulados
 type SocketEvent = "new-post" | "post-updated";
 
 // Callbacks que los componentes pueden registrar
@@ -19,12 +17,9 @@ const listeners: {
 };
 
 // --- SIMULACIÓN DEL SERVIDOR WEBSOCKET ---
-// Esta parte simula un servidor emitiendo eventos.
-// En una app real, esto estaría en un backend.
 
 /**
- * Simula la emisión de un evento 'new-post' desde el "servidor".
- * En una aplicación real, el servidor WebSocket enviaría este evento
+ * Simula la emisión de un evento 'new-post' desde el "servidor"
  * a todos los clientes conectados cuando un nuevo post es creado por CUALQUIER usuario.
  */
 export const simulateNewPostEvent = (newPost: Post): void => {
@@ -43,27 +38,11 @@ export const simulatePostUpdatedEvent = (updatedPost: Post): void => {
 
 // --- API DEL CLIENTE WEBSOCKET (lo que usarían los componentes) ---
 
-// No necesitamos una conexión real para la simulación, pero mantenemos la estructura.
-// let socket: any = null; // En una app real: import { io, Socket } from 'socket.io-client'; let socket: Socket;
-
 const connect = () => {
-  // En una app real:
-  // if (socket && socket.connected) return;
-  // socket = io('URL_DEL_SERVIDOR_WEBSOCKET');
-  // socket.on('connect', () => console.log('WebSocket connected'));
-  // socket.on('disconnect', () => console.log('WebSocket disconnected'));
-  // socket.on('new-post', (post: Post) => {
-  //   listeners['new-post'].forEach(listener => listener(post));
-  // });
-  // socket.on('post-updated', (post: Post) => {
-  //   listeners['post-updated'].forEach(listener => listener(post));
-  // });
   console.log('[Socket SIM] "Connected" to simulated WebSocket.');
 };
 
 const disconnect = () => {
-  // En una app real:
-  // if (socket) socket.disconnect();
   console.log('[Socket SIM] "Disconnected" from simulated WebSocket.');
 };
 
@@ -78,7 +57,6 @@ const on = (
   }
   console.log(`[Socket SIM] Listener registered for "${event}"`);
 
-  // Devolver una función para desregistrar el listener (cleanup)
   return () => {
     console.log(`[Socket SIM] Listener deregistered for "${event}"`);
     if (event === "new-post") {
@@ -100,8 +78,6 @@ export const socketService = {
   connect,
   disconnect,
   on,
-  // Exponemos las funciones de simulación para que otras partes de la app
-  // (como el postService) puedan simular eventos del servidor.
   simulateNewPostEvent,
   simulatePostUpdatedEvent,
 };

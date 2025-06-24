@@ -18,6 +18,7 @@ const messaging = getMessaging(app);
 export const requestNotificationPermission = async () => {
   try {
     const permission = await Notification.requestPermission();
+
     if (permission === "granted") {
       console.log("Notification permission granted.");
 
@@ -62,6 +63,7 @@ export const requestNotificationPermission = async () => {
       message: "No se pudo obtener el token para notificaciones.",
       color: "red",
     });
+
     return null;
   }
 };

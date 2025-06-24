@@ -5,11 +5,15 @@ import { postService } from "../services/postService";
 import { socketService } from "../services/socketService";
 import type { Post } from "../types/post";
 
+// Este hook personalizado se utiliza para manejar la lógica relacionada con las publicaciones.
+// Incluye la carga de publicaciones, manejo de errores, y actualización en tiempo real.
+
 export function usePosts() {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Función para obtener las publicaciones desde el servicio.
   const fetchPosts = async () => {
     setIsLoading(true);
     setError(null);
@@ -29,19 +33,16 @@ export function usePosts() {
     }
   };
 
+  // Efecto para cargar las publicaciones al montar el componente.
   useEffect(() => {
     fetchPosts();
   }, []);
 
+  // Efecto para manejar eventos de socket relacionados con nuevas publicaciones y actualizaciones.
   useEffect(() => {
     const handleNewPostSocketEvent = (newPost: Post) => {
       if (!allPosts.some((p) => p.id === newPost.id)) {
         setAllPosts((prevPosts) => [...prevPosts, newPost]);
-        notifications.show({
-          title: "Nuevo Post Remoto",
-          message: `Un nuevo post \"${newPost.title}\" ha sido agregado por otro usuario.`,
-          color: "teal",
-        });
       }
     };
 
@@ -49,17 +50,14 @@ export function usePosts() {
       setAllPosts((prevPosts) =>
         prevPosts.map((p) => (p.id === updatedPost.id ? updatedPost : p)),
       );
-      notifications.show({
-        title: "Post Actualizado Remotamente",
-        message: `El post \"${updatedPost.title}\" ha sido actualizado por otro usuario.`,
-        color: "cyan",
-      });
     };
 
+    // Suscripción a eventos de socket.
     const unsubscribeNewPostSocket = socketService.on(
       "new-post",
       handleNewPostSocketEvent,
     );
+
     const unsubscribePostUpdatedSocket = socketService.on(
       "post-updated",
       handlePostUpdatedSocketEvent,
@@ -75,7 +73,7 @@ export function usePosts() {
             setAllPosts((prevPosts) => [...prevPosts, message.payload]);
             notifications.show({
               title: "Sincronización",
-              message: `Nuevo post \"${message.payload.title}\" agregado en otra pestaña.`,
+              message: `Nuevo post \"${message.payload.title}\" agregado por otro usuario.`,
               color: "grape",
             });
           }
@@ -88,7 +86,7 @@ export function usePosts() {
           );
           notifications.show({
             title: "Sincronización",
-            message: `Post \"${message.payload.title}\" actualizado en otra pestaña.`,
+            message: `Post \"${message.payload.title}\" actualizado por otro usuario.`,
             color: "grape",
           });
           break;
@@ -98,7 +96,7 @@ export function usePosts() {
           );
           notifications.show({
             title: "Sincronización",
-            message: `Post eliminado en otra pestaña.`,
+            message: `Post eliminado por otro usuario.`,
             color: "grape",
           });
           break;
@@ -118,10 +116,19 @@ export function usePosts() {
     };
   }, [allPosts]);
 
-  const uniqueAuthors = useMemo(() => {
-    const authors = new Set(allPosts.map((post) => post.author));
-    return Array.from(authors);
-  }, [allPosts]);
+  // Cálculo de autores únicos para los filtros.
+  const uniqueAuthors = useMemo(
+    () => Array.from(new Set(allPosts.map((post) => post.author))),
+    [allPosts],
+  );
 
-  return { allPosts, isLoading, error, fetchPosts, uniqueAuthors, setAllPosts };
+  // Retorno de valores y funciones necesarias para el componente.
+  return {
+    fetchPosts,
+    uniqueAuthors,
+    isLoading,
+    error,
+    allPosts,
+    setAllPosts,
+  };
 }

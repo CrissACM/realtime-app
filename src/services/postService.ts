@@ -101,7 +101,7 @@ export const postService = {
     const postIndex = posts.findIndex((post) => post.id === id);
 
     if (postIndex === -1) {
-      return null; // O lanzar un error
+      return null;
     }
 
     const updatedPost = {
@@ -130,5 +130,4 @@ export const postService = {
   },
 };
 
-// Exportar el tipo PostStatus también para usarlo en filtros, etc.
 export type { PostStatus };

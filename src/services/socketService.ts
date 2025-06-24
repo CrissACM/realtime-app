@@ -71,7 +71,6 @@ const on = (
   };
 };
 
-// Inicializar la "conexión" al cargar el servicio
 connect();
 
 export const socketService = {

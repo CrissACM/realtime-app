@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { PostStatus } from "../types/post";
 
 interface PostFiltersProps {
-  authors: string[]; // Lista de autores únicos para el select de autor
+  authors: string[];
   onFilterChange: (filters: { author: string; status: string }) => void;
   onClearFilters: () => void;
 }

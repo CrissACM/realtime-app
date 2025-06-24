@@ -1,4 +1,3 @@
-// src/features/posts/components/PostForm.tsx
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
@@ -33,12 +32,11 @@ const postSchema = z.object({
   }),
 });
 
-// Tipo para los datos del formulario, inferido del esquema Zod
 export type PostFormData = z.infer<typeof postSchema>;
 
 interface PostFormProps {
-  initialData?: Post; // Post existente para edición
-  onSubmit: (data: PostFormData) => Promise<void>; // Hacerla async para manejar estados de carga
+  initialData?: Post;
+  onSubmit: (data: PostFormData) => Promise<void>;
   onCancel: () => void;
   isSubmitting: boolean;
 }
@@ -76,7 +74,7 @@ export default function PostForm({
           placeholder="Título del post"
           {...register("title")}
           error={errors.title?.message}
-          data-autofocus // Para enfocar al abrir el modal
+          data-autofocus
         />
         <Textarea
           label="Contenido"

@@ -1,5 +1,4 @@
 import { ActionIcon, Badge, Card, Group, Text } from "@mantine/core";
-// import { IconPencil, IconTrash } from "@tabler/icons-react";
 import { TbPencil, TbTrash } from "react-icons/tb";
 import type { Post, PostStatus } from "../types/post";
 

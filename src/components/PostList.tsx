@@ -1,4 +1,3 @@
-// src/features/posts/components/PostList.tsx
 import type { Post } from "../types/post";
 import { PostCard } from "./PostCard";
 import { SimpleGrid, Text } from "@mantine/core";
@@ -7,7 +6,7 @@ interface PostListProps {
   posts: Post[];
   onEditPost: (post: Post) => void;
   onDeletePost: (postId: string) => void;
-  isLoading?: boolean; // Opcional para mostrar un estado de carga
+  isLoading?: boolean;
 }
 
 export function PostList({
@@ -17,7 +16,7 @@ export function PostList({
   isLoading,
 }: PostListProps) {
   if (isLoading) {
-    return <Text>Cargando publicaciones...</Text>; // O un Spinner de Mantine
+    return <Text>Cargando publicaciones...</Text>;
   }
 
   if (!posts || posts.length === 0) {

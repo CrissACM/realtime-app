@@ -69,7 +69,7 @@ export function usePostActions(
 
           notifications.show({
             title: "Post Eliminado",
-            message: "La publicación ha sido eliminada correctamente.",
+            message: "El post ha sido eliminado correctamente.",
             color: "green",
           });
         } else {

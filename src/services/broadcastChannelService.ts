@@ -1,5 +1,3 @@
-// src/services/broadcastChannelService.ts
-
 import type { Post } from "../types/post";
 
 const CHANNEL_NAME = "post_updates_channel";
@@ -41,7 +39,6 @@ const postMessage = (message: BroadcastMessage) => {
 
 const subscribe = (callback: MessageListener): (() => void) => {
   listeners.push(callback);
-  // Devolver función de desuscripción
   return () => {
     const index = listeners.indexOf(callback);
     if (index > -1) {
@@ -58,7 +55,6 @@ const disconnect = () => {
   }
 };
 
-// Conectar automáticamente al cargar el servicio
 connect();
 
 export const broadcastChannelService = {

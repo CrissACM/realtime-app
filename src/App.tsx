@@ -10,10 +10,17 @@ import { useModalActions } from "./hooks/useModalAction";
 import { usePostActions } from "./hooks/usePostActions";
 import { usePosts } from "./hooks/usePosts";
 
+// Este archivo define el componente principal de la aplicación.
+// Aquí se integran los diferentes componentes y hooks para manejar la lógica de la aplicación.
+
+// Importación de componentes y hooks necesarios para la funcionalidad de la aplicación.
+
 export default function App() {
+  // Uso del hook usePosts para manejar la lógica de las publicaciones.
   const { fetchPosts, uniqueAuthors, isLoading, error, allPosts, setAllPosts } =
     usePosts();
 
+  // Uso del hook useModalActions para manejar las acciones relacionadas con el modal.
   const {
     handleOpenEditModal,
     handleOpenCreateModal,
@@ -22,21 +29,26 @@ export default function App() {
     editingPost,
   } = useModalActions();
 
+  // Uso del hook usePostActions para manejar las acciones de los posts (crear, editar, eliminar).
   const { handleFormSubmit, handleDeletePost, isSubmitting } = usePostActions(
     setAllPosts,
     closeModal,
     editingPost,
   );
 
+  // Uso del hook useFilters para manejar los filtros de las publicaciones.
   const { handleFilterChange, handleClearFilters, filteredPosts } =
     useFilters(allPosts);
 
+  // Uso del hook useEnableNotifications para habilitar las notificaciones.
   const { handleEnableNotifications } = useEnableNotifications();
 
+  // Renderizado condicional basado en el estado de carga y errores.
   if (isLoading) return <Loading />;
 
   if (error) return <Error fetchPosts={fetchPosts} error={error} />;
 
+  // Renderizado principal del componente.
   return (
     <Container py="xl" size="lg">
       <Title order={1} ta="center" mb="xl">
